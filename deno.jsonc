@@ -1,0 +1,19 @@
+{
+  "name": "@denosaurs/phc-format",
+  "version": "0.1.0",
+  "exports": "./mod.ts",
+
+  "lock": false,
+  "tasks": {
+    "start": "deno run -A --allow-read --watch example/argon2.ts",
+    "test": "deno test --no-check  test/"
+  },
+  "lint": {
+    "rules": {
+      "tags": ["recommended"]
+    }
+  },
+  "imports": {
+    "@std/encoding": "jsr:@std/encoding@1.0.7"
+  }
+}
