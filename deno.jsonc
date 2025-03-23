@@ -1,6 +1,7 @@
 {
-  "name": "@denosaurs/phc-format",
+  "name": "@b-life-org/phc-format",
   "version": "0.1.0",
+  "license": "MIT",
   "exports": "./mod.ts",
 
   "lock": false,
