@@ -1,13 +1,13 @@
 {
   "name": "@b-life-org/phc-format",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "license": "MIT",
   "exports": "./mod.ts",
 
   "lock": false,
   "tasks": {
-    "start": "deno run -A --allow-read --watch example/argon2.ts",
-    "test": "deno test --no-check  test/"
+    "start": "deno run -A example/argon2.ts",
+    "test": "deno test test/"
   },
   "lint": {
     "rules": {
@@ -15,6 +15,6 @@
     }
   },
   "imports": {
-    "@std/encoding": "jsr:@std/encoding@1.0.7"
+    "@std/encoding": "jsr:@std/encoding@^1"
   }
 }

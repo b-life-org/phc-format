@@ -1,7 +1,11 @@
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 # phc-format
 
-Fork from https://github.com/simonepri/phc-format/", "author": "Simone Primarosa
-(https://simoneprimarosa.com)",
+Fork from https://github.com/simonepri/phc-format/, author:
+[Simone Primarosa](https://simoneprimarosa.com)
+
+Port to Deno & Typescript
 
 ## Motivation
 
@@ -35,34 +39,35 @@ bunx jsr add @b-life-org/phc-format
 ## Usage
 
 ```ts
-import { deserialize, serialize } from "@b-life-org/phc-format";
-export { decodeBase64, encodeBase64 } from "jsr:@std/encoding@^1.0.7/base64";
-
+import { deserialize, serialize } from "jsr:@b-life-org/phc-format";
+import { decodeBase64, encodeBase64 } from "jsr:@std/encoding@1";
 
 const phcobj = {
-    id: "argon2id",
-    // version parameter is optional
-    version: 19,
-    params: {
-      m: 4096,
-      t: 3,
-      p: 1,
-    },
-    salt: decodeBase64(
-      "is3l4odzaPZ9wfe4FjMJ1vQSHMspqMJQETyy3bwgfLqHZPo6aoUxqw==",
-    ),
-    hash: decodeBase64(
-      "IwTKxtAEG7E1xyMfhhBC11q6HDG6zM1QmXzBSUU861k=",
-    ),
-  };
+  id: "argon2id",
+  // version parameter is optional
+  version: 19,
+  params: {
+    m: 4096,
+    t: 3,
+    p: 1,
+  },
+  salt: decodeBase64(
+    "is3l4odzaPZ9wfe4FjMJ1vQSHMspqMJQETyy3bwgfLqHZPo6aoUxqw",
+  ),
+  hash: decodeBase64(
+    "IwTKxtAEG7E1xyMfhhBC11q6HDG6zM1QmXzBSUU861k",
+  ),
+};
 
 const phcstr =
-  "$argon2id$v=19$m=4096,t=3,p=1$is3l4odzaPZ9wfe4FjMJ1vQSHMspqMJQETyy3bwgfLqHZPo6aoUxqw==$IwTKxtAEG7E1xyMfhhBC11q6HDG6zM1QmXzBSUU861k=",
+  "$argon2id$v=19$m=4096,t=3,p=1$is3l4odzaPZ9wfe4FjMJ1vQSHMspqMJQETyy3bwgfLqHZPo6aoUxqw$IwTKxtAEG7E1xyMfhhBC11q6HDG6zM1QmXzBSUU861k";
 
-serialize(phcobj);
+console.log(serialize(phcobj));
 // => phcstr
 
-deserialize(phcstr);
+const phcobj2 = deserialize(phcstr);
+
+console.log(phcobj2, encodeBase64(phcobj2.salt), encodeBase64(phcobj2.hash));
 // => phcobj
 ```
 
@@ -117,12 +122,12 @@ the PHC string.
 
 Original
 
-- **Simone Primarosa** - _Github_ ([@simonepri][github:simonepri])
+- **Simone Primarosa** - _Github_ ([@simonepri](github:simonepri))
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE][LICENSE] file
-for details.
+This project is licensed under the MIT License - see the [LICENSE](./LICENSE)
+file for details.
 
 <!-- Links -->
 

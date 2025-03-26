@@ -102,6 +102,29 @@ function deserializeParams(str: string): Params {
  * Serializes a PHC object into a PHC string.
  * @param opts PHC components (id, version, params, salt, hash)
  * @returns PHC string e.g. $argon2id$v=19$m=65536,t=3,p=4$<salt>$<hash>
+ * @example
+ * ```ts
+ * const encoder = new TextEncoder();
+ *
+ * // Store the salt and hash, this could be done with a PHC string or just as is.
+ * // Using a PHC string you would use the `serialize` function to encode it
+ * const salt1 = new Uint8Array(40);
+ * crypto.getRandomValues(salt1);
+ * const hash1 = new Uint8Array(hash(encoder.encode("example password"), salt1));
+ *
+ * // Serializing as PHC, this is when you would want to store it in the database
+ * const phc1 = serialize({
+ * id: "argon2id",
+ * version: 19,
+ * params: {
+ *     m: 4096,
+ *     t: 3,
+ *     p: 1,
+ *  },
+ *  salt: salt1,
+ *  hash: hash1,
+ * });
+ * ```
  */
 export function serialize(opts: PhcOptions): string {
   if (typeof opts !== "object" || opts === null) {
@@ -170,6 +193,21 @@ export function serialize(opts: PhcOptions): string {
  *    ```
  * @param phcStr PHC-formatted string.
  * @returns Parsed PHC components as object.
+ * @example
+ * ```ts
+ * import { timingSafeEqual } from "jsr:@std/crypto@^1.0.4";
+ * import { hash } from "jsr:@denosaurs/argontwo@0.2.0";
+ *
+ * // Deserializing the PHC string, probably directly fetched from a database in a real-life scenario
+ * const { salt, hash: hash2 } = deserialize(phc1);
+ * const encoder = new TextEncoder();
+ * const hash1 = new Uint8Array(hash(encoder.encode("example password"), salt));
+ *
+ * // Using timing safe equal protects against timing based attacks
+ * if (hash2) {
+ *   console.log("equal hash ? ", timingSafeEqual(hash1, hash2 as Uint8Array));
+ * }
+ * ```
  */
 export function deserialize(phcStr: string): PhcOptions {
   if (phcStr === null || phcStr === "" || typeof phcStr !== "string") {

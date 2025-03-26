@@ -5,7 +5,7 @@ import { hash } from "jsr:@denosaurs/argontwo@0.2.0";
 const encoder = new TextEncoder();
 
 // Store the salt and hash, this could be done with a PHC string or just as is.
-// Using a PHC string you would use the `phc.serialize` function to encode it
+// Using a PHC string you would use the `serialize` function to encode it
 const salt1 = new Uint8Array(40);
 crypto.getRandomValues(salt1);
 const hash1 = new Uint8Array(hash(encoder.encode("example password"), salt1));
